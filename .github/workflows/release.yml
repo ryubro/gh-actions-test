@@ -1,9 +1,9 @@
-name: Bump Minor Version CI
+name: Release
 
 on:
   workflow_dispatch:
     inputs:
-      scheme:
+      version:
         description: 'major | minor | patch'
         required: true
         default: 'minor'
@@ -32,3 +32,30 @@ jobs:
         git add package-lock.json
         git commit -m "VERSION"
         git push origin master
+
+  release:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js v12
+      uses: actions/setup-node@v1
+      with:
+        node-version: v12.x
+    - id: getId
+      run: |
+        VERSION=$(npm run env | grep npm_package_version | cut -d '=' -f 2)
+        echo "::set-output name=version::$(VERSION)"
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      with:
+        tag_name: v${{ steps.getId.outputs.version }}
+        release_name: Release v${{ steps.getId.outputs.version }}
+        body: |
+          Changes in this Release
+          - First Change
+          - Second Change
+        draft: true
+        prerelease: false
