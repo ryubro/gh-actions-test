@@ -1,0 +1,19 @@
+{
+  "name": "@ryubro/gh-actions-test",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryubro/gh-actions-test.git"
+  },
+  "author": "ByoungYong Kim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ryubro/gh-actions-test/issues"
+  },
+  "homepage": "https://github.com/ryubro/gh-actions-test#readme"
+}
