@@ -25,7 +25,7 @@ jobs:
       id: version
       run: |
         VERSION=$(npm --no-git-tag-version version ${{ github.event.inputs.version }})
-        echo "::set-output name=version::$VERSIONt"
+        echo "::set-output name=version::$VERSION"
     - name: setup git config
       run: |
         # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
@@ -64,10 +64,6 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: v12.x
-    - id: getId
-      run: |
-        VERSION=$(npm run env | grep npm_package_version | cut -d '=' -f 2)
-        echo "::set-output name=version::$(VERSION)"
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
