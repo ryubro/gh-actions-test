@@ -23,8 +23,8 @@ jobs:
     # - run: npm run build --if-present
     - id: version
       run: |
-      VERSION=$(npm --no-git-tag-version version ${{ github.event.inputs.version }})
-      echo "::set-output name=version::$(VERSION)"
+        VERSION=$(npm --no-git-tag-version version ${{ github.event.inputs.version }})
+        echo "::set-output name=version::$(VERSION)"
     - name: setup git config
       run: |
         # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
