@@ -29,5 +29,6 @@ jobs:
       run: |
         # Stage the file, commit and push
         git add package.json
+        git add package-lock.json
         git commit -m "VERSION"
         git push origin master
