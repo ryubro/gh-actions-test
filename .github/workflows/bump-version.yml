@@ -1,0 +1,33 @@
+name: Bump Minor Version CI
+
+on:
+  workflow_dispatch:
+    inputs:
+      scheme:
+        description: 'major | minor | patch'
+        required: true
+        default: 'minor'
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js v12
+      uses: actions/setup-node@v1
+      with:
+        node-version: v12.x
+    - run: npm ci
+    # - run: npm run build --if-present
+    - run: npm --no-git-tag-version version ${{ github.event.inputs.scheme }}
+    - name: setup git config
+      run: |
+        # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
+        git config user.name "GitHub Actions Bot"
+        git config user.email "<>"
+    - name: commit
+      run: |
+        # Stage the file, commit and push
+        git add package.json
+        git commit -m "VERSION"
+        git push origin master
