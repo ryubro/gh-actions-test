@@ -17,4 +17,5 @@ jobs:
       env:
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       run: |
+        npm set //registry.npmjs.org/:_authToken=${NPM_TOKEN}
         npm publish ${{ github.event.release.assets[0].browser_download_url }}
